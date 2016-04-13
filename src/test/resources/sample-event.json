@@ -1,0 +1,9 @@
+{
+  "eventType": "ObjectAccessed",
+  "accountUrn": "person",
+  "userUrn": "bob",
+  "data": {
+    "Superman": "Clark Kent",
+    "Batman": "Bruce Wayne"
+  }
+}
