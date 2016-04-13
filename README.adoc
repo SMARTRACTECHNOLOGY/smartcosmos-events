@@ -3,11 +3,11 @@ SMARTRAC Technology Fletcher Inc <api@smartrac-group.com>
 
 The SMART COSMOS Objects Event Service is designed to provide an easier entry point for services that do not want to implement the dependencies required to publish messages into a message bus.  Moreover, this abstraction enables a greater level of customization for what constitutes the message bus.  Lastly, this also provides a non-JAVA entry point for publishing events.
 
-Right now this service takes advantage of in-memory data storage of http://redis.io/[redis] enabling a high scalability, fault tolerant mechanism for exchanging events.
+Right now this service takes advantage of consumer subscription groups capable in https://www.rabbitmq.com/[RabbitMQ] enabling a high scalability, fault tolerant mechanism for exchanging events.
 
 == Publishing to the Event Bus
 
-Most services are automatically configured with the `@EnableSmartCosmos` to push events to the service registered as `smartcosmos-events` in the cluster.  As long as this service (or the service designed to replace it) uses that key, then events will be POST to an endpoint at this location.  Events that correspond to the following format will be injected into redis:
+Most services are automatically configured with the `@EnableSmartCosmos` to push events to the service registered as `smartcosmos-events` in the cluster.  As long as this service (or the service designed to replace it) uses that key, then events will be POST to an endpoint at this location.  Events that correspond to the following format will be injected into the message bus:
 
 [source,javascript]
 ----
@@ -25,6 +25,4 @@ Most services are automatically configured with the `@EnableSmartCosmos` to push
 
 == Watching the Event Bus
 
-Since the messages are sent to redis, you can watch what is happening with the `redis-cli`
-
-Once inside redis just run `psubscribe smartcosmos:events` (see http://redis.io/commands/psubscribe for more info), and you should see the events as they come in.
+Since the messages are sent to rabbitmq, you can watch what is happening with the RabbitMQ Admin GUI
