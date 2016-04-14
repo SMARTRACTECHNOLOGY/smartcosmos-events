@@ -13,8 +13,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @SpringBootApplication
 public class EventService {
 
-	public static void main(String[] args) {
-		new SpringApplicationBuilder(EventService.class).web(true).run(args);
-	}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(EventService.class).web(true).run(args);
+    }
 
 }

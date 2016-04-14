@@ -22,26 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class EventResource {
 
-	private final ISmartCosmosEventGateway eventGateway;
+    private final ISmartCosmosEventGateway eventGateway;
 
-	@Autowired
-	public EventResource(final ISmartCosmosEventGateway eventGateway) {
-		this.eventGateway = eventGateway;
-	}
+    @Autowired
+    public EventResource(final ISmartCosmosEventGateway eventGateway) {
+        this.eventGateway = eventGateway;
+    }
 
-	@RequestMapping
-	public ResponseEntity getEvent() {
-		return ResponseEntity.noContent().build();
-	}
+    @RequestMapping
+    public ResponseEntity getEvent() {
+        return ResponseEntity.noContent().build();
+    }
 
-	@RequestMapping(value = "**", method = RequestMethod.POST)
-	public ResponseEntity postEvent(@RequestBody @Valid SmartCosmosEvent event) {
+    @RequestMapping(value = "**", method = RequestMethod.POST)
+    public ResponseEntity postEvent(@RequestBody @Valid SmartCosmosEvent event) {
 
-		log.info("Received event of type {}, sending event contents: {}",
-				event.getEventType(), event.getData());
+        log.info("Received event of type {}, sending event contents: {}",
+                event.getEventType(), event.getData());
 
-		eventGateway.convertAndSend(event);
+        eventGateway.convertAndSend(event);
 
-		return ResponseEntity.noContent().build();
-	}
+        return ResponseEntity.noContent().build();
+    }
 }
