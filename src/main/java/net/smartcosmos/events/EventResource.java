@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
 
+import net.smartcosmos.security.user.SmartCosmosUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +36,7 @@ public class EventResource {
     }
 
     @RequestMapping(value = "**", method = RequestMethod.POST)
-    public ResponseEntity postEvent(@RequestBody @Valid SmartCosmosEvent event) {
+    public ResponseEntity postEvent(@RequestBody @Valid SmartCosmosEvent event, SmartCosmosUser user) {
 
         log.info("Received event of type {}, sending event contents: {}",
                 event.getEventType(), event.getData());
