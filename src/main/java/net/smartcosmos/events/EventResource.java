@@ -38,8 +38,8 @@ public class EventResource {
     @RequestMapping(value = "**", method = RequestMethod.POST)
     public ResponseEntity postEvent(@RequestBody @Valid SmartCosmosEvent event, SmartCosmosUser user) {
 
-        log.info("Received event of type {}, sending event contents: {}",
-                event.getEventType(), event.getData());
+        log.info("Received event of type {}, sending event contents: {}, from user {}",
+                event.getEventType(), event.getData(), user.getUsername());
 
         eventGateway.convertAndSend(event);
 
