@@ -1,8 +1,8 @@
 package net.smartcosmos.events;
 
 import net.smartcosmos.spring.EnableSmartCosmos;
-
 import net.smartcosmos.spring.EnableSmartCosmosSecurity;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
