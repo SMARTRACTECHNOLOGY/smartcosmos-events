@@ -1,16 +1,18 @@
 package net.smartcosmos.events;
 
-import javax.validation.Valid;
-
 import lombok.extern.slf4j.Slf4j;
 import net.smartcosmos.security.user.SmartCosmosUser;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Rather than implement an Event listener in every since RDAO, which would cause massive
@@ -23,11 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class EventResource {
 
-    private final ISmartCosmosEventGateway eventGateway;
+    private final ISmartCosmosEventTemplate smartCosmosEventTemplate;
 
     @Autowired
-    public EventResource(final ISmartCosmosEventGateway eventGateway) {
-        this.eventGateway = eventGateway;
+    public EventResource(final ISmartCosmosEventTemplate smartCosmosEventTemplate) {
+        this.smartCosmosEventTemplate = smartCosmosEventTemplate;
     }
 
     @RequestMapping
@@ -41,7 +43,15 @@ public class EventResource {
         log.info("Received event of type {}, sending event contents: {}, from user {}",
                 event.getEventType(), event.getData(), user.getUsername());
 
-        eventGateway.convertAndSend(event);
+        try {
+            smartCosmosEventTemplate.sendEvent(event);
+        } catch (SmartCosmosEventException e) {
+            log.debug(e.getMessage(),e);
+            Map<String,String> error = new LinkedHashMap<>();
+            error.put("code","-1");
+            error.put("message",e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(error);
+        }
 
         return ResponseEntity.noContent().build();
     }

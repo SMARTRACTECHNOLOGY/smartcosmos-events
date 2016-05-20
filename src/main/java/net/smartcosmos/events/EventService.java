@@ -11,7 +11,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @EnableSmartCosmos
 @EnableSmartCosmosSecurity
-@SmartCosmosEventProducer
 @SpringBootApplication
 public class EventService {
 
