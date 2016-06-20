@@ -25,10 +25,10 @@ import java.util.Map;
 @Slf4j
 public class EventResource {
 
-    private final ISmartCosmosEventTemplate smartCosmosEventTemplate;
+    private final SmartCosmosEventTemplate smartCosmosEventTemplate;
 
     @Autowired
-    public EventResource(final ISmartCosmosEventTemplate smartCosmosEventTemplate) {
+    public EventResource(final SmartCosmosEventTemplate smartCosmosEventTemplate) {
         this.smartCosmosEventTemplate = smartCosmosEventTemplate;
     }
 
