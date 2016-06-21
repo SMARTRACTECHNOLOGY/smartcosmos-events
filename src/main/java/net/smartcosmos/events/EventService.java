@@ -10,6 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @author voor
  */
 @EnableSmartCosmos
+@EnableSmartCosmosEvents
 @EnableSmartCosmosSecurity
 @SpringBootApplication
 public class EventService {

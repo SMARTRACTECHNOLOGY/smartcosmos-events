@@ -5,6 +5,7 @@ import net.smartcosmos.security.user.SmartCosmosUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +26,11 @@ import java.util.Map;
 @Slf4j
 public class EventResource {
 
-    private final SmartCosmosEventTemplate smartCosmosEventTemplate;
+    private final KafkaTemplate kafkaTemplate;
 
     @Autowired
-    public EventResource(final SmartCosmosEventTemplate smartCosmosEventTemplate) {
-        this.smartCosmosEventTemplate = smartCosmosEventTemplate;
+    public EventResource(final KafkaTemplate kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @RequestMapping
@@ -44,8 +45,8 @@ public class EventResource {
                 event.getEventType(), event.getData(), user.getUsername());
 
         try {
-            smartCosmosEventTemplate.sendEvent(event);
-        } catch (SmartCosmosEventException e) {
+            kafkaTemplate.sendDefault(event);
+        } catch (Exception e) {
             log.debug(e.getMessage(),e);
             Map<String,String> error = new LinkedHashMap<>();
             error.put("code","-1");
