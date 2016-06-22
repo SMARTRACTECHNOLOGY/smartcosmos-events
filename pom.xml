@@ -32,7 +32,7 @@
     <name>SMART COSMOS Event Stream</name>
     <description>Message streaming abstraction endpoint for services that do not need to implement clients.</description>
     <properties>
-        <start-class>net.smartcosmos.events.EventService</start-class>
+        <start-class>net.smartcosmos.events.EventApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -60,6 +60,11 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

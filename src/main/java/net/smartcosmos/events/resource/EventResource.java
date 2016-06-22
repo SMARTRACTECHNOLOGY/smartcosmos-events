@@ -1,16 +1,15 @@
-package net.smartcosmos.events;
+package net.smartcosmos.events.resource;
 
 import lombok.extern.slf4j.Slf4j;
+import net.smartcosmos.events.SmartCosmosEvent;
+import net.smartcosmos.events.SmartCosmosEventTemplate;
 import net.smartcosmos.security.user.SmartCosmosUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.StringUtils;
-import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,12 +30,12 @@ import java.util.Map;
 @Slf4j
 public class EventResource {
 
-    private final KafkaTemplate kafkaTemplate;
-
     @Autowired
-    public EventResource(final KafkaTemplate kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public EventResource(SmartCosmosEventTemplate eventService) {
+        this.eventService = eventService;
     }
+
+    private final SmartCosmosEventTemplate eventService;
 
     @RequestMapping
     public ResponseEntity getEvent() {
@@ -56,9 +55,7 @@ public class EventResource {
         }
 
         try {
-            ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(builder.build());
-            future.addCallback(result -> log.info("Event Successfully sent to Kafka topic {}, partition {}", result.getRecordMetadata().topic(), result.getRecordMetadata().partition()),
-                ex -> log.error("Failed to send event to Kafka", ex));
+            eventService.sendEvent(event);
         } catch (Exception e) {
             log.debug(e.getMessage(),e);
             Map<String,String> error = new LinkedHashMap<>();
