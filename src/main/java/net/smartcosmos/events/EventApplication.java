@@ -7,16 +7,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
- * @author voor
+ * Launch class for the Event Service. Receives events through regular service authentication, and deposits them into the event pipeline.
  */
 @EnableSmartCosmos
+@EnableSmartCosmosEvents
 @EnableSmartCosmosSecurity
-@SmartCosmosEventProducer
 @SpringBootApplication
-public class EventService {
+public class EventApplication {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(EventService.class).web(true).run(args);
+        new SpringApplicationBuilder(EventApplication.class).web(true).run(args);
     }
 
 }

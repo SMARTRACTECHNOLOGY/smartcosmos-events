@@ -32,7 +32,7 @@
     <name>SMART COSMOS Event Stream</name>
     <description>Message streaming abstraction endpoint for services that do not need to implement clients.</description>
     <properties>
-        <start-class>net.smartcosmos.events.EventService</start-class>
+        <start-class>net.smartcosmos.events.EventApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -40,8 +40,12 @@
             <artifactId>smartcosmos-framework</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <groupId>net.smartcosmos</groupId>
+            <artifactId>smartcosmos-framework-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -51,6 +55,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
