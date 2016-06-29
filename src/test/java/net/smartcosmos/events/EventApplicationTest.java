@@ -1,14 +1,15 @@
 package net.smartcosmos.events;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.specification.RequestSpecification;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.*;
+import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -16,9 +17,6 @@ import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.basic;
 import static com.jayway.restassured.RestAssured.given;
@@ -41,11 +39,13 @@ public class EventApplicationTest {
 
     private RequestSpecification requestSpecification;
 
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        System.setProperty("kafka.broker.address", embeddedKafka.getBrokersAsString());
+    }
+
     @Before
     public void setUp() throws Exception {
-        embeddedKafka.getBrokersAsString();
-        String brokerAddress = System.getProperty(KafkaEmbedded.SPRING_EMBEDDED_KAFKA_BROKERS);
-
         RestAssured.port = port;
         RestAssured.authentication = basic("user", "password");
         RequestSpecBuilder builder = new RequestSpecBuilder();
