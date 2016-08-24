@@ -1,18 +1,13 @@
 package net.smartcosmos.events.resource;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,11 +26,12 @@ import net.smartcosmos.security.user.SmartCosmosUser;
  */
 @RestController
 @Slf4j
-@Profile("!noop")
-public class EventResource {
+@Profile("noop")
+public class NoOpEventResource {
 
     @Autowired
-    public EventResource(SmartCosmosEventTemplate eventService) {
+    public NoOpEventResource(SmartCosmosEventTemplate eventService) {
+
         this.eventService = eventService;
     }
 
@@ -43,31 +39,29 @@ public class EventResource {
 
     @RequestMapping
     public ResponseEntity getEvent() {
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity.noContent()
+            .build();
     }
 
     @RequestMapping(value = "**", method = RequestMethod.POST)
     public ResponseEntity postEvent(@RequestBody @Valid SmartCosmosEvent event, SmartCosmosUser user) {
 
         log.info("REST Received event of type {}, sending event contents: {}, from user {}",
-                event.getEventType(), event.getData(), user.getUsername());
+                 event.getEventType(), event.getData(), user.getUsername());
+        log.info("Doing nothing about that event because this is the no-op resource.");
 
-        MessageBuilder builder = MessageBuilder.withPayload(event).setHeader(KafkaHeaders.TOPIC, event.getEventType());
+        return ResponseEntity.noContent()
+            .build();
+    }
 
-        if (StringUtils.hasText(event.getEventUrn())) {
-            builder.setHeader(KafkaHeaders.MESSAGE_KEY,event.getEventUrn());
-        }
+    @PostConstruct
+    public void init() {
 
-        try {
-            eventService.sendEvent(event);
-        } catch (Exception e) {
-            log.debug(e.getMessage(),e);
-            Map<String,String> error = new LinkedHashMap<>();
-            error.put("code","-1");
-            error.put("message",e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(error);
-        }
-
-        return ResponseEntity.noContent().build();
+        log.error("\n\n***********************************************************************************\n" +
+                  "WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING \n\n" +
+                  "\t\tRUNNING IN NO-OP MODE, ABSOLUTELY NO EVENTS ARE SAVED OR SENT.\n" +
+                  "\t\tTHIS IS A DEVELOPMENT ONLY MODE AND SHOULD NEVER BE USED IN PRODUCTION!\n" +
+                  "***********************************************************************************\n");
     }
 }
