@@ -1,0 +1,8 @@
+project:
+  artifactId: smartcosmos-ext-things-rdao
+spring:
+  application:
+    name: @project.artifactId@
+  cloud:
+    config:
+      enabled: false

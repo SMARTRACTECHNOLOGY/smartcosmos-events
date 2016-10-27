@@ -4,6 +4,7 @@ ifdef::env-github[:USER: SMARTRACTECHNOLOGY]
 ifdef::env-github[:REPO: smartcosmos-events]
 ifdef::env-github[:BRANCH: master]
 
+image::https://jenkins.smartcosmos.net/buildStatus/icon?job={USER}/{REPO}/{BRANCH}[Build Status, link=https://jenkins.smartcosmos.net/job/{USER}/job/{REPO}/job/{BRANCH}/]
 image::https://travis-ci.org/{USER}/{REPO}.svg?branch={BRANCH}[Build Status, link=https://travis-ci.org/{USER}/{REPO}]
 
 The SMART COSMOS Objects Event Service is designed to provide an easier entry point for services that do not want to implement the dependencies required to publish messages into a message bus.  Moreover, this abstraction enables a greater level of customization for what constitutes the message bus.  Lastly, this also provides a non-JAVA entry point for publishing events.
