@@ -42,6 +42,10 @@
         </dependency>
         <dependency>
             <groupId>net.smartcosmos</groupId>
+            <artifactId>smartcosmos-framework-monitoring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.smartcosmos</groupId>
             <artifactId>smartcosmos-framework-messaging</artifactId>
         </dependency>
         <dependency>
