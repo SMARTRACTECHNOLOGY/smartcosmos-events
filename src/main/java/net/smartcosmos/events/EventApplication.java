@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import net.smartcosmos.annotation.EnableSmartCosmosEvents;
+import net.smartcosmos.annotation.EnableSmartCosmosMonitoring;
 import net.smartcosmos.annotation.EnableSmartCosmosSecurity;
 
 /**
@@ -11,6 +12,7 @@ import net.smartcosmos.annotation.EnableSmartCosmosSecurity;
  */
 @EnableSmartCosmosEvents
 @EnableSmartCosmosSecurity
+@EnableSmartCosmosMonitoring
 @SpringBootApplication
 public class EventApplication {
 
