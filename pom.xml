@@ -42,11 +42,11 @@
         </dependency>
         <dependency>
             <groupId>net.smartcosmos</groupId>
-            <artifactId>smartcosmos-framework-monitoring</artifactId>
+            <artifactId>smartcosmos-framework-messaging</artifactId>
         </dependency>
         <dependency>
             <groupId>net.smartcosmos</groupId>
-            <artifactId>smartcosmos-framework-messaging</artifactId>
+            <artifactId>smartcosmos-framework-monitoring</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
