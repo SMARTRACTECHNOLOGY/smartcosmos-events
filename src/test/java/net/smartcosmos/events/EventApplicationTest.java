@@ -41,7 +41,8 @@ public class EventApplicationTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        System.setProperty("kafka.broker.address", embeddedKafka.getBrokersAsString());
+
+        System.setProperty("smartcosmos.service.kafka.address", embeddedKafka.getBrokersAsString());
     }
 
     protected MediaType contentType = MediaType.APPLICATION_JSON_UTF8;

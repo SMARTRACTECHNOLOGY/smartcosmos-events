@@ -1,12 +1,13 @@
+smartcosmos:
+  service:
+    kafka:
+      host: ${KAFKA_HOST:'http://localhost'}
+      port: 9092
+      address: ${smartcosmos.service.kafka.host}:${smartcosmos.service.kafka.port}
+    zookeeper:
+      host: ${ZOOKEEPER_HOST:'http://localhost'}
+      port: 2181
+      address: ${smartcosmos.service.zookeeper.host}:${smartcosmos.service.zookeeper.port}
 
-kafka:
-  broker:
-    host: ${KAFKA_IP:172.17.0.3}
-    port: 9092
-    address: ${kafka.broker.host}:${kafka.broker.port}
-  zookeeper:
-    host: ${ZK_IP:172.17.0.2}
-    port: 2181
-    address: ${kafka.zookeeper.host}:${kafka.zookeeper.port}
 server:
   port: 0
