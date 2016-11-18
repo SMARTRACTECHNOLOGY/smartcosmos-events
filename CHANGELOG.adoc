@@ -1,0 +1,23 @@
+= SMART COSMOS Event Service Release Notes
+
+== UNRELEASED
+
+=== New Features
+
+No new features are added in this release.
+
+=== Bugfixes & Improvements
+
+== Release 3.1.0 (November 18, 2016)
+
+=== New Features
+
+* No-Op mode for development purposes
+
+=== Bugfixes & Improvements
+
+* Some test improvements
+
+== Release 3.0.0 (August 12, 2016)
+
+Initial release.
