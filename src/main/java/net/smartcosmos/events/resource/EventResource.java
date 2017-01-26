@@ -31,7 +31,7 @@ import net.smartcosmos.security.user.SmartCosmosUser;
  */
 @RestController
 @Slf4j
-@ConditionalOnProperty(name = "smartcosmos.events.noop", havingValue = "false", matchIfMissing = false)
+@ConditionalOnProperty(name = "smartcosmos.events.noop", havingValue = "false", matchIfMissing = true)
 public class EventResource {
 
     @Autowired
