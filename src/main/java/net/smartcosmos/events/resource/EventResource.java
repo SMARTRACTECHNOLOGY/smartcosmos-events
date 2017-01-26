@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -31,7 +31,7 @@ import net.smartcosmos.security.user.SmartCosmosUser;
  */
 @RestController
 @Slf4j
-@ConditionalOnProperty(name = "smartcosmos.events.noop", havingValue = "false", matchIfMissing = true)
+@Profile("!noop")
 public class EventResource {
 
     @Autowired
